@@ -7,7 +7,7 @@ module Network.Tangaroa.Byzantine.Handler
 import Control.Lens
 import Control.Monad hiding (mapM)
 import Control.Monad.Loops
-import Codec.Digest.SHA
+import Crypto.Hash.SHA256
 import Data.Binary
 import Data.Sequence (Seq)
 import Data.Set (Set)
@@ -162,9 +162,9 @@ appendLogEntries pli es = do
 
 hashLogEntry :: (Binary nt, Binary et) => Maybe (LogEntry nt et) -> LogEntry nt et -> LogEntry nt et
 hashLogEntry (Just LogEntry{ _leHash = prevHash}) le =
-  le { _leHash = hash SHA256 (encode (le { _leHash = prevHash }))}
+  le { _leHash = hashlazy (encode (le { _leHash = prevHash }))}
 hashLogEntry Nothing le =
-  le { _leHash = hash SHA256 (encode (le { _leHash = B.empty }))}
+  le { _leHash = hashlazy (encode (le { _leHash = B.empty }))}
 
 updateLogHashesFromIndex :: (Binary nt, Binary et) => LogIndex -> Raft nt et rt mt ()
 updateLogHashesFromIndex i = do
