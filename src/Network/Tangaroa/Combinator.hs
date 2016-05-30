@@ -12,7 +12,7 @@ import Control.Monad.RWS
 -- like $, but the function is a lens from the reader environment with a
 -- pure function as its target
 infixr 0 ^$
-(^$) :: forall (m :: * -> *) b r a. (MonadReader r m, Functor m) =>
+(^$) :: forall (m :: * -> *) b r a. MonadReader r m =>
   Getting (a -> b) r (a -> b) -> a -> m b
 lf ^$ a = fmap ($ a) (view lf)
 

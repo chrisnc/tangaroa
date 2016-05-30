@@ -131,7 +131,7 @@ applyCommand Command{..} = do
         (case mlid of Just lid -> lid; Nothing -> nid)
         _cmdRequestId)
 
-leaderDoCommit :: Ord nt => Raft nt et rt mt ()
+leaderDoCommit :: Raft nt et rt mt ()
 leaderDoCommit = do
   commitUpdate <- leaderUpdateCommitIndex
   when commitUpdate applyLogEntries
@@ -154,7 +154,7 @@ applyLogEntries = do
 -- called only as leader
 -- checks to see what the largest N where a majority of
 -- the lMatchIndex set is >= N
-leaderUpdateCommitIndex :: Ord nt => Raft nt et rt mt Bool
+leaderUpdateCommitIndex :: Raft nt et rt mt Bool
 leaderUpdateCommitIndex = do
   ci <- use commitIndex
   lmi <- use lMatchIndex
