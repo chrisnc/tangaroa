@@ -59,7 +59,7 @@ handleTermNumber :: Term -> Raft nt et rt mt ()
 handleTermNumber rpcTerm = do
   ct <- use term
   when (rpcTerm > ct) $ do
-    rs.writeTermNumber ^$ rpcTerm
+    _ <- rs.writeTermNumber ^$ rpcTerm
     setVotedFor Nothing
     term .= rpcTerm
     becomeFollower

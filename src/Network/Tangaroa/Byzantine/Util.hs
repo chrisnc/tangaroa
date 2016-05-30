@@ -145,5 +145,5 @@ signRPCWithKey rpc = do
 
 updateTerm :: Term -> Raft nt et rt mt ()
 updateTerm t = do
-  rs.writeTermNumber ^$ t
+  _ <- rs.writeTermNumber ^$ t
   term .= t

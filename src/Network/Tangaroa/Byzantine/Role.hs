@@ -30,7 +30,7 @@ checkElection = do
 
 setVotedFor :: Maybe nt -> Raft nt et rt mt ()
 setVotedFor mvote = do
-  rs.writeVotedFor ^$ mvote
+  _ <- rs.writeVotedFor ^$ mvote
   votedFor .= mvote
 
 becomeFollower :: Raft nt et rt mt ()
